@@ -1,22 +1,26 @@
-var path = require('path');
+const path = require('path');
 
 module.exports = {
+  context: __dirname,
   entry: './frontend/index.jsx',
-  output: './app/asset/javascript',
+  output: {
+    path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
+    filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '*']
+  },
   module: {
-    loaders: [
+    rules: [
       {
-        test: [/\.jsx?$/],
+        test: /\.jsx?$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
         query: {
-          preset: ['env', 'react']
+          presets: ['env', 'react']
         }
       }
     ]
   },
-  devtool: 'source-map',
-  resolve: {
-    extension: ['js', 'jsx', '*']
-  }
+  devtool: 'source-map'
 };
